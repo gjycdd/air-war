@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<link rel="stylesheet" type="text/css" href="css/css.css"/>
+<script src="js/main.js"></script>
+<body>
+<div class="flyBox" id="flyBox">
+    <div class="mask" id="mask"></div>
+    <div class="start">
+        <button id="start">开始游戏</button>
+        <button id="quit">退出游戏</button>
+    </div>
+</div>
+<p class="score">得分：0</p>
+<p class="blood">
+    <span></span>
+    <span></span>
+    <span></span>
+</p>
+<button id="num">HIT!!!</button>
+<div class="box">
+    <button id="easy">简单</button>
+    <button id="hard">困难</button>
+    <button id="harder">地狱</button>
+</div>
+</body>
+<script>
+    var start=document.getElementsByClassName('start')[0];
+    var oStart=document.getElementById('start');
+    var oQuit=document.getElementById('quit');
+    var oBlood=document.getElementsByClassName('blood')[0];
+    var oEasy=document.getElementById('easy');
+    var oHard=document.getElementById('hard');
+    var oHarder=document.getElementById('harder');
+    var oBox=document.getElementsByClassName('box')[0];
+    var oNum=document.getElementById('num');
+    var live=oBlood.children;
+    var plane;
+    var bullet={};
+    var elefly_s;
+    var elefly_l;
+    var elefly_xl;
+    var flag=true;
+    oNum.onclick=function(){
+        if(flag){
+            oBox.style.display='block';
+            oHard.style.background='#f0f';
+            oHarder.style.background='#f00';
+            flag=!flag;
+        }else{
+            oBox.style.display='none';
+            flag=!flag;
+        }
+    }
+    oEasy.onclick=function(){
+        oBox.style.display='none';
+        oBlood.innerHTML='';
+        for(var i=0;i<10;i++){
+            var life=document.createElement('span');
+            oBlood.appendChild(life);
+        }
+        flag=!flag;
+    }
+    oHard.onclick=function(){
+        oBox.style.display='none';
+        oBlood.innerHTML='';
+        for(var i=0;i<5;i++){
+            var life=document.createElement('span');
+            oBlood.appendChild(life);
+        }
+        flag=!flag;
+    }
+    oHarder.onclick=function(){
+        oBox.style.display='none';
+        oBlood.innerHTML='';
+        for(var i=0;i<1;i++){
+            var life=document.createElement('span');
+            oBlood.appendChild(life);
+        }
+        flag=!flag;
+    }
+    oStart.onclick=function(){
+        start.style.display='none';
+        plane = new myPlane(live.length);
+        bullet = new Bullet(200);
+        elefly_s= new elePlane({
+            speed:5,
+            blood:1,
+            times:1000,
+            class_1:'enemy1_fly_1',
+            class_2:'enemy1_fly_2'
+        })
+        elefly_l= new elePlane({
+            speed:3,
+            blood:3,
+            times:2000,
+            class_1:'enemy2_fly_1',
+            class_2:'enemy2_fly_2'
+        })
+        elefly_xl= new elePlane({
+            speed:2,
+            blood:5,
+            times:4000,
+            class_1:'enemy3_fly_1',
+            class_2:'enemy3_fly_2'
+        })
+        oBlood.innerHTML='';
+        for(var i=0;i<plane.blood;i++){
+            var life=document.createElement('span');
+            oBlood.appendChild(life);
+        }
+    }
+    oQuit.onclick=function(){
+        window.close();
+    }
+</script>
+</html>
